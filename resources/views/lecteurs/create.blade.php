@@ -1,0 +1,71 @@
+@extends('layouts.base')
+
+@section('content')
+<div>
+    <h1>Ajouter un nouveau lecteur</h1>
+
+    @if ($errors->any())
+        <div>
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
+    <form action="{{ route('lecteurs.store') }}" method="POST">
+        @csrf
+
+        <div>
+            <label for="nom">Nom</label>
+            <input type="text" name="nom" id="nom" value="{{ old('nom') }}" required>
+        </div>
+
+        <div>
+            <label for="prenom">Prénom</label>
+            <input type="text" name="prenom" id="prenom" value="{{ old('prenom') }}" required>
+        </div>
+
+        <div>
+            <label for="date_naissance">Date de naissance</label>
+            <input type="date" name="date_naissance" id="date_naissance" value="{{ old('date_naissance') }}">
+        </div>
+
+        <div>
+            <label for="telephone">Téléphone</label>
+            <input type="text" name="telephone" id="telephone" value="{{ old('telephone') }}" required>
+        </div>
+
+        <div>
+            <label for="email">Email</label>
+            <input type="email" name="email" id="email" value="{{ old('email') }}" required>
+        </div>
+
+        <div>
+            <label for="password">Mot de passe</label>
+            <input type="password" name="password" id="password" required>
+        </div>
+
+        {{-- <div>
+            <label for="type">Type</label>
+            <select name="type" id="type" required>
+                <option value="" disabled {{ old('type') ? '' : 'selected' }}>-- Choisir un type --</option>
+                <option value="eleve" {{ old('type') === 'eleve' ? 'selected' : '' }}>Élève</option>
+                <option value="enseignant" {{ old('type') === 'enseignant' ? 'selected' : '' }}>Enseignant</option>
+                <option value="personnel" {{ old('type') === 'personnel' ? 'selected' : '' }}>Personnel</option>
+            </select>
+        </div> --}}
+
+        <div>
+            <input type="checkbox" name="est_abonne" id="est_abonne" value="1" {{ old('est_abonne') ? 'checked' : '' }}>
+            <label for="est_abonne">Est abonné ?</label>
+        </div>
+
+        <div>
+            <button type="submit">Enregistrer</button>
+            <a href="{{ route('lecteurs.index') }}">Annuler</a>
+        </div>
+    </form>
+</div>
+@endsection
